@@ -1,0 +1,42 @@
+@startuml usecases
+
+actor "Eindgebruiker" as Eindgebruiker <<natuurlijk persoon>>
+actor "Zorgverlener" as Zorgverlener
+actor "Burger \n(buiten scope)" as Patient
+actor "Onderzoeker \n(buiten scope)" as Onderzoeker
+
+actor "Afnemer van data of service" as DataAfnemer <<rechtspersoon>>
+actor "Zorgaanbieder" as ZorgaanbiederGebruiker
+actor "Dienstverlener \nZorginformatiesysteem" as Dienstverlener
+actor "CIBG (NVI)" as NVI
+
+package "Generieke Functie Autorisatie" {
+  usecase "UC-GFA-01. \nPersoon vraagt autorisatie" as UCGFL01
+  usecase "UC-GFA-02. \nOrganisatie vraagt autorisatie" as UCGFL02
+}
+
+actor "Aanbieder van data of service" as DataAanbieder <<rechtspersoon>>
+actor "Zorgaanbieder" as ZorgaanbiederHouder
+actor "CIBG (NVI)" as NVIHouder
+actor "CIBG (LRZa)" as LRZaHouder
+
+Zorgverlener  --|> Eindgebruiker
+Patient  --|> Eindgebruiker
+Onderzoeker  --|> Eindgebruiker
+
+:Eindgebruiker: -down-> UCGFL01
+
+ZorgaanbiederGebruiker --|> DataAfnemer
+Dienstverlener --|> DataAfnemer 
+NVI --|> DataAfnemer
+
+:DataAfnemer: -down-> UCGFL02
+
+ZorgaanbiederHouder -up-|> DataAanbieder
+NVIHouder -up-|> DataAanbieder
+LRZaHouder -up-|> DataAanbieder
+
+:DataAanbieder: -up-> UCGFL01
+:DataAanbieder: -up-> UCGFL02
+
+@enduml

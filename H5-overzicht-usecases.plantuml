@@ -1,0 +1,13 @@
+@startuml usecases
+actor "Eindgebruiker" as Eindgebruiker
+actor "Systeem" as Systeem
+
+package "Generieke Functie Autorisatie" {
+  usecase "UC-GFA-01. \nPersoon verwerkt data" as UCGFL01
+  usecase "UC-GFA-02. \nSysteem verwerkt data" as UCGFL02
+}
+
+:Eindgebruiker: -down-> UCGFL01
+:Systeem: -down-> UCGFL02
+
+@enduml

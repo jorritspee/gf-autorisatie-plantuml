@@ -1,0 +1,23 @@
+@startuml usecases
+actor "Eindgebruiker" as Eindgebruiker
+actor "Systeem" as Systeem
+
+package "Generieke Functie Autorisatie" {
+  usecase "UC-GFA-01. \nPersoon verkrijgt toegang tot dataverwerking" as UCGFA01
+  usecase "UC-GFA-02. \nSysteem verkrijgt toegang tot dataverwerking" as UCGFA02
+  usecase "UC-GFA-03. \nZorgaanbieder verleent toegang tot dataverwerking" as UCGFA03
+  usecase "UC-GFA-04. \nNiet-Zorgaanbieder verleent toegang tot dataverwerking" as UCGFA04
+}
+
+actor "Zorgaanbieder" as Zorgaanbieder
+actor "Datahouder niet-Zorgaanbieder" as Datahouder
+
+:Eindgebruiker: -down-> UCGFA01
+:Systeem: -down-> UCGFA02
+:Zorgaanbieder: -up-> UCGFA03
+:Datahouder: -up-> UCGFA04
+
+:Zorgaanbieder: -[hidden]up-> UCGFA01
+:Zorgaanbieder: -[hidden]up-> UCGFA02
+
+@enduml

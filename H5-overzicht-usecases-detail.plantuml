@@ -1,0 +1,52 @@
+@startuml usecases
+actor "Eindgebruiker" as Eindgebruiker
+actor "Systeem" as Systeem <<systeem>>
+actor "Zorgaanbieder \n(Datagebruiker)" as ZorgaanbiederRaad
+
+package "Generieke Functie Autorisatie" {
+  package "Verkrijgen toegang" {
+    usecase "UC-GFA-01. \nPersoon verkrijgt toegang \ntot dataverwerking" as UCGFA01
+    usecase "UC-GFA-02. \nSysteem verkrijgt toegang \ntot dataverwerking" as UCGFA02
+    usecase "UC-GFA-03. \nOrganisatie verkrijgt toegang \ntot dataverwerking" as UCGFA03
+  }
+  package "Verlenen toegang" {
+    usecase "UC-GFA-04. \nZorgaanbieder verleent toegang \ntot dataverwerking" as UCGFA04
+    usecase "UC-GFA-05. \nNVI verleent toegang \ntot dataverwerking" as UCGFA05
+    usecase "UC-GFA-06. \nLRZa verleent toegang \ntot dataverwerking" as UCGFA06
+    usecase "UC-GFA-07. \nOverige datahouder verleent toegang \ntot dataverwerking" as UCGFA07
+  }
+  package "Maken autorisatieafspraak" {
+    usecase "UC-GFA-08. \nMaken autorisatieafspraak" as UCGFA08
+  }
+}
+
+actor "Zorgaanbieder \n(Datahouder)" as ZorgaanbiederBron
+actor "NVI" as NVI <<systeem>>
+actor "LRZa" as LRZa <<systeem>>
+actor "Overige datahouder" as Datahouder
+
+:Eindgebruiker: -down-> UCGFA01
+:Systeem: -down-> UCGFA02
+:ZorgaanbiederRaad: -down-> UCGFA03
+:ZorgaanbiederBron: -up-> UCGFA04
+:NVI: -up-> UCGFA05
+:LRZa: -up-> UCGFA06
+:Datahouder: -up-> UCGFA07
+
+:Systeem: -[hidden]down-> UCGFA01
+:Systeem: -[hidden]down-> UCGFA03
+
+:ZorgaanbiederRaad: -[hidden]down-> UCGFA02
+:ZorgaanbiederRaad: -[hidden]down-> UCGFA04
+
+
+:ZorgaanbiederBron: -[hidden]up-> UCGFA03
+:ZorgaanbiederBron: -[hidden]up-> UCGFA05
+
+:NVI: -[hidden]up-> UCGFA04
+:NVI: -[hidden]up-> UCGFA06
+
+:LRZa: -[hidden]up-> UCGFA05
+:LRZa: -[hidden]up-> UCGFA07
+
+@enduml
